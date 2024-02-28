@@ -1,0 +1,132 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This API was developed by the HVAR Consulting MLOps Team. It returns the predicted NCM code given the description (name) of a product, by connecting to a Machine Learning text classification model hosted on Google Cloud Vertex AI",
+        "version": "0.2.0",
+        "title": "Dufry NCM Classifier",
+        "contact": {
+            "email": "victor.viola@hvarconsulting.com.br"
+        }
+    },
+    "tags": [{
+        "name": "NCM classifier",
+        "description": "Classifies your product into a NCM code"
+    }],
+    "schemes": ["http", "https"],
+    "paths":{
+        "/ncm-classifier":{
+            "post":{
+                "tags":["classifier"],
+                "summary":"predicts the NCM of a product",
+                "operationId":"ncm-classifier",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                    "name":"input_text",
+                    "in":"formData",
+                    "description":"Text or name of product to classify",
+                    "required":true,
+                    "type":"string"
+                    }],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    }
+                }
+            }
+        },
+        "ncm-classifier/{id}":{
+            "get":{
+                "tags":["get and update"],
+                "summary":"gets the information from a given prediction from the ID",
+                "operationId":"get-entry",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                    "name":"id",
+                    "in":"path",
+                    "description":"ID of a classification done previously",
+                    "required":true,
+                    "type":"string"
+                    }],
+                "responses":{
+                    "200":{
+                        "description":"successful operation",
+                        "schema":{
+                                "properties":{
+                                    "id": {
+                                        "type": "string",
+                                        "example": "1637253467-victor.viola@hvarconsulting.com.br"
+                                    },
+                                    "input_text": {
+                                        "type": "string",
+                                        "example": "chocolate cacau 100g"
+                                    },
+                                    "confidence_score": {
+                                        "type": "float",
+                                        "example": "0.78"
+                                    },
+                                    "ncm_code": {
+                                        "type": "string",
+                                        "example": "18063210"
+                                    },
+                                    "ncm_description": {
+                                        "type": "string",
+                                        "example": "18: Cacau e suas preparações, 1806: Chocolate e outras preparações alimentícias que contenham cacau, 18063210: Chocolate "
+                                    },
+                                    "category_type": {
+                                        "type": "string",
+                                        "example": "FULL_NCM"
+                                    },
+                                    "result": {
+                                        "type": "Boolean",
+                                        "example": 0
+                                    },
+                                    "ground_truth": {
+                                        "type": "string",
+                                        "example": "19052010"
+                                    }
+                                }
+                        }
+                    }
+                }
+            },
+            "patch":{
+                "tags":["get and update"],
+                "summary":"updates the status and the NCM of a former entry",
+                "operationId":"update-entry",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID of a classification done previously",
+                        "required":true,
+                        "type":"string"
+                    },
+                    {
+                        "name":"field",
+                        "in":"formData",
+                        "description":"field which you want to update the value",
+                        "required":true,
+                        "type":"string"
+                    },
+                    {
+                        "name":"value",
+                        "in":"formData",
+                        "description":"new value for the given field",
+                        "required":true,
+                        "type":"string"
+                    }],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    }
+                }
+            }
+        }
+    }
+}

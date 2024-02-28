@@ -1,0 +1,37 @@
+# openapi2-run.yaml
+swagger: '2.0'
+info:
+  title: df-ncm-classifier 
+  description: Sample API on API Gateway with a Cloud Run backend
+  version: 1.0.0
+schemes:
+- https
+produces:
+- application/json
+x-google-backend:
+  address: https://df-ncm-classifier-rkm62kqzhq-rj.a.run.app
+paths:
+  /assets/{asset}:
+    get:
+      parameters:
+        - in: path
+          name: asset
+          type: string
+          required: true
+          description: Name of the asset.
+      summary: Assets
+      operationId: getAsset
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
+  /ncm-classifier/{id}:
+    get:
+      summary: Get the results from a ID.
+      operationId: hello
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string

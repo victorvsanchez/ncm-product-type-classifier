@@ -1,0 +1,19 @@
+# Function dependencies, for example:
+# package>=version
+#GCP
+google-cloud-aiplatform==1.7.1
+google-cloud==0.34.0
+google-cloud-bigquery==2.26.0
+google-cloud-logging==2.6.0
+google-cloud-storage==1.42.2
+#Modeling
+numpy==1.21.4
+pandas==1.3.3
+uuid==1.30
+#Services
+Flask==2.0.1
+gunicorn==20.1.0
+psutil==5.8.0
+firebase_admin==5.1.0
+#logging==0.4.9.6
+flask-swagger-ui==3.20.9
